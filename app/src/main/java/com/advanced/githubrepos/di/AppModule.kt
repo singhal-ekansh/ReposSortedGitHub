@@ -1,13 +1,12 @@
 package com.advanced.githubrepos.di
 
-import com.advanced.githubrepos.Api
+import com.advanced.githubrepos.network.Api
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module

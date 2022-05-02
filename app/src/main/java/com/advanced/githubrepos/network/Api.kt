@@ -1,4 +1,4 @@
-package com.advanced.githubrepos
+package com.advanced.githubrepos.network
 
 import com.advanced.githubrepos.models.ResponseModel
 import com.google.gson.JsonObject

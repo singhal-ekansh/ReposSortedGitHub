@@ -1,8 +1,9 @@
-package com.advanced.githubrepos
+package com.advanced.githubrepos.datasources
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.advanced.githubrepos.models.Item
+import com.advanced.githubrepos.network.Api
 import retrofit2.HttpException
 import java.io.IOException
 

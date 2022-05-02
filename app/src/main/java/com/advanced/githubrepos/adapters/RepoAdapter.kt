@@ -1,4 +1,4 @@
-package com.advanced.githubrepos
+package com.advanced.githubrepos.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

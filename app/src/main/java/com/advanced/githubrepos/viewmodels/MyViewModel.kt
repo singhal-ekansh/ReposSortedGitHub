@@ -1,12 +1,12 @@
-package com.advanced.githubrepos
+package com.advanced.githubrepos.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.advanced.githubrepos.datasources.MyRepository
+import com.advanced.githubrepos.network.Api
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
