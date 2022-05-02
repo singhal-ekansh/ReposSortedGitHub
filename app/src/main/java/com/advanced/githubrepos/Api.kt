@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface Api {
 
-    @GET("/search/repositories?q=lib&sort=stars&per_page=5")
+    @GET("/search/repositories?q=lib&sort=stars&per_page=50")
     suspend fun getReposByStars() : Response<JsonObject>
 }
