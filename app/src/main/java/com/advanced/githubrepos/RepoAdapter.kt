@@ -1,45 +1,49 @@
 package com.advanced.githubrepos
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.advanced.githubrepos.databinding.RepoCardBinding
+import com.advanced.githubrepos.models.Item
 import com.bumptech.glide.Glide
 
-class RepoAdapter(private val context: Context) : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
+class RepoAdapter(private val context: Context) :
+    PagingDataAdapter<Item, RepoAdapter.RepoViewHolder>(diffCallback) {
 
-    var repoList: ArrayList<Repos> = ArrayList()
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<Item>() {
+            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    class RepoViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val repoNameView = ItemView.findViewById<TextView>(R.id.repoNameView)!!
-        val repoImageView = ItemView.findViewById<ImageView>(R.id.repoImageView)!!
+            override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
+
+    inner class RepoViewHolder(val binding: RepoCardBinding) : RecyclerView.ViewHolder(binding.root)
+
+
+    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
+        val currentItem = getItem(position)
+        holder.binding.apply {
+            repoNameView.text = currentItem?.name
+            Glide.with(context).load(currentItem?.owner?.avatar_url).into(repoImageView)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.repo_card, parent, false)
-
-        return RepoViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        val itemViewModel = repoList[position]
-        holder.repoNameView.text = itemViewModel.name
-        Glide.with(context).load(itemViewModel.icon).into(holder.repoImageView)
-    }
-
-    override fun getItemCount(): Int {
-        return repoList.size
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateRepoList(repos: ArrayList<Repos>) {
-        repoList.addAll(repos)
-        this.notifyDataSetChanged()
+        return RepoViewHolder(
+            RepoCardBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 }

@@ -2,16 +2,20 @@ package com.advanced.githubrepos
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.DelicateCoroutinesApi
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MyViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel()
+class MyViewModel
+@Inject constructor(private val api: Api) : ViewModel() {
 
-    var repository: MyRepository = MyRepository()
+    val reposData = Pager(PagingConfig(pageSize = 1)) {
+        MyRepository(api)
+    }.flow.cachedIn(viewModelScope)
 
-    @DelicateCoroutinesApi
-    fun loadData(): MutableLiveData<ArrayList<Repos>> {
-        return repository.callApi()
-    }
 }

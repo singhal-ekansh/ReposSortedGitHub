@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -33,7 +35,9 @@ android {
         viewBinding true
     }
 }
-
+kapt {
+    correctErrorTypes = true
+}
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -57,7 +61,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
 
     // coroutine
 
@@ -72,6 +77,11 @@ dependencies {
 
     def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime:$paging_version"
+
+    //hilt
+
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
