@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listReposFragment3">
+    <fragment
+        android:id="@+id/listReposFragment3"
+        android:name="com.advanced.githubrepos.fragments.ListReposFragment"
+        android:label="fragment_list_repos"
+        tools:layout="@layout/fragment_list_repos" >
+        <action
+            android:id="@+id/action_listReposFragment3_to_repoDetailFragment3"
+            app:destination="@id/repoDetailFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/repoDetailFragment3"
+        android:name="com.advanced.githubrepos.fragments.RepoDetailFragment"
+        android:label="fragment_repo_detail"
+        tools:layout="@layout/fragment_repo_detail" >
+        <action
+            android:id="@+id/action_repoDetailFragment3_to_listReposFragment3"
+            app:destination="@id/listReposFragment3" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="des"
+            app:argType="string" />
+        <argument
+            android:name="stars"
+            app:argType="integer" />
+    </fragment>
+</navigation>
