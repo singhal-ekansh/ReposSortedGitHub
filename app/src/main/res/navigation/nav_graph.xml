@@ -18,9 +18,6 @@
         android:name="com.advanced.githubrepos.fragments.RepoDetailFragment"
         android:label="fragment_repo_detail"
         tools:layout="@layout/fragment_repo_detail" >
-        <action
-            android:id="@+id/action_repoDetailFragment3_to_listReposFragment3"
-            app:destination="@id/listReposFragment3" />
         <argument
             android:name="name"
             app:argType="string" />
@@ -30,5 +27,8 @@
         <argument
             android:name="stars"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_repoDetailFragment3_to_listReposFragment3"
+            app:destination="@id/listReposFragment3" />
     </fragment>
 </navigation>

@@ -21,6 +21,7 @@ import com.advanced.githubrepos.databinding.FragmentListReposBinding
 import com.advanced.githubrepos.models.Item
 import com.advanced.githubrepos.viewmodels.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -46,15 +47,18 @@ class ListReposFragment() : Fragment(), RepoAdapter.OnRepoClick {
         super.onViewCreated(view, savedInstanceState)
 
         repoAdapter = RepoAdapter(requireContext(), this)
+
         binding.RepoRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = repoAdapter
         }
+
         lifecycleScope.launch {
             viewModel.reposData.collect { pagingData ->
                 repoAdapter.submitData(pagingData)
             }
         }
+
     }
 
     override fun onCardClick(item: Item) {

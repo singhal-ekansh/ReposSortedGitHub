@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface Api {
 
-    @GET("/search/repositories?q=created&sort=stars&per_page=25")
+    @GET("/search/repositories?q=created&sort=stars&per_page=50")
     suspend fun getReposByStars(@Query("page") page :Int) : Response<ResponseModel>
 }
