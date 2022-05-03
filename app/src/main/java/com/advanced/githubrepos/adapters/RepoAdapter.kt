@@ -2,6 +2,7 @@ package com.advanced.githubrepos.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -10,8 +11,9 @@ import com.advanced.githubrepos.databinding.RepoCardBinding
 import com.advanced.githubrepos.models.Item
 import com.bumptech.glide.Glide
 
-class RepoAdapter(private val context: Context) :
+class RepoAdapter(private val context: Context, onRepoClick: OnRepoClick) :
     PagingDataAdapter<Item, RepoAdapter.RepoViewHolder>(diffCallback) {
+    private val clickListener: OnRepoClick = onRepoClick
 
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<Item>() {
@@ -26,7 +28,14 @@ class RepoAdapter(private val context: Context) :
         }
     }
 
-    inner class RepoViewHolder(val binding: RepoCardBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class RepoViewHolder(val binding: RepoCardBinding, listener: OnRepoClick) :
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener(View.OnClickListener {
+                listener.onCardClick(getItem(absoluteAdapterPosition)!!)
+            })
+        }
+    }
 
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
@@ -43,7 +52,11 @@ class RepoAdapter(private val context: Context) :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), clickListener
         )
+    }
+
+    interface OnRepoClick {
+        fun onCardClick(item: Item)
     }
 }
