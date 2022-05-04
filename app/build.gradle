@@ -58,7 +58,8 @@ dependencies {
 
     def lifecycle_version = "2.4.1"
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version" // LiveData
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
@@ -79,6 +80,7 @@ dependencies {
 
     def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     //hilt
 

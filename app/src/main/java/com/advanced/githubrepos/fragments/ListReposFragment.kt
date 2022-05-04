@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.advanced.githubrepos.MainActivity
 import com.advanced.githubrepos.R
+import com.advanced.githubrepos.adapters.PagingLoadState
 import com.advanced.githubrepos.adapters.RepoAdapter
 import com.advanced.githubrepos.databinding.FragmentListReposBinding
 import com.advanced.githubrepos.models.Item
@@ -38,15 +39,17 @@ class ListReposFragment() : Fragment(), RepoAdapter.OnRepoClick {
     ): View {
         // Inflate the layout for this fragment
 
-        if(!init)
-        {
+        if (!init) {
             binding = FragmentListReposBinding.inflate(inflater, container, false)
 
             repoAdapter = RepoAdapter(requireContext(), this)
 
             binding.RepoRecycler.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = repoAdapter
+                adapter = repoAdapter.withLoadStateHeaderAndFooter(
+                    header = PagingLoadState { repoAdapter.retry() },
+                    footer = PagingLoadState { repoAdapter.retry() }
+                )
             }
 
             lifecycleScope.launch {
