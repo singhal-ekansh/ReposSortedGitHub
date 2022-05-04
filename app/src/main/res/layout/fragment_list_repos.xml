@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ListReposFragment">
 
-    <LinearLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RepoRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RepoRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dp" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content" />
 
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
