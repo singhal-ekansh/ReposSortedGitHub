@@ -30,7 +30,7 @@ class ListReposFragment() : Fragment(), RepoAdapter.OnRepoClick {
     private lateinit var repoAdapter: RepoAdapter
     private val viewModel: MyViewModel by viewModels()
     private lateinit var binding: FragmentListReposBinding
-
+    var init = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,28 +38,28 @@ class ListReposFragment() : Fragment(), RepoAdapter.OnRepoClick {
     ): View {
         // Inflate the layout for this fragment
 
-        binding = FragmentListReposBinding.inflate(inflater, container, false)
+        if(!init)
+        {
+            binding = FragmentListReposBinding.inflate(inflater, container, false)
+
+            repoAdapter = RepoAdapter(requireContext(), this)
+
+            binding.RepoRecycler.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = repoAdapter
+            }
+
+            lifecycleScope.launch {
+                viewModel.reposData.collect { pagingData ->
+                    repoAdapter.submitData(pagingData)
+                }
+            }
+            init = true
+        }
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        repoAdapter = RepoAdapter(requireContext(), this)
-
-        binding.RepoRecycler.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = repoAdapter
-        }
-
-        lifecycleScope.launch {
-            viewModel.reposData.collect { pagingData ->
-                repoAdapter.submitData(pagingData)
-            }
-        }
-
-    }
 
     override fun onCardClick(item: Item) {
 
